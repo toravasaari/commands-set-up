@@ -10,7 +10,7 @@ For the first version, this'll set up tmux commands.
 
 ## TODO list
 * setup.sh script
-** install tmux if not present
+ * install tmux if not present
 * create basic environment commands for tmux
 * interactive mode for setup script
 * ...
