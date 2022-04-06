@@ -1,0 +1,144 @@
+
+format = """
+[\u256d](fg:#727272)\
+[](fg:#727272)\
+$hostname\
+$username\
+[](bg:#595959 fg:#727272)\
+$directory\
+[](fg:#595959 bg:#323232)\
+$git_branch\
+$git_status\
+[](fg:#323232)\
+([](fg:#1A1A1A bg:#323232)$python[](bg:#1A1A1A fg:#323232))\
+\
+$fill\
+\
+[](fg:#727272)\
+$time\
+[](fg:#727272 bg:#DA627D)\
+$cmd_duration\
+$status\
+[](fg:#DA627D)
+[\u2570](fg:#727272)\
+$env_var\
+$character
+"""
+
+# Wait 25 milliseconds for starship to check files under the current directory.
+scan_timeout = 25
+
+[hostname]
+ssh_only = true
+#ssh_only = false
+style = "fg:#202020 bg:#727272"
+format = "[ $hostname ]($style)"
+
+# You can also replace your username with a neat symbol like  to save some space
+[username]
+show_always = true
+style_user = "fg:#202020 bg:#727272"
+style_root = "fg:#202020 bg:#727272"
+format = '[ $user ]($style)'
+#
+#[username.substitutions]
+#"toravasaari" = "\uf483"
+
+
+[directory]
+style = "fg:#202020 bg:#595959"
+format = "[ $path ]($style)"
+truncation_length = 4
+truncate_to_repo = false
+home_symbol = "\uf7db"
+truncation_symbol = "…  "
+
+[directory.substitutions]
+"/" = "  "
+
+
+[character]
+success_symbol = "[❯](bold)"
+
+
+[git_branch]
+symbol = ""
+style = "bg:#323232"
+format = '[ $symbol $branch ]($style)'
+truncation_length = 40
+
+[git_status]
+style = "bg:#323232 fg:#818181"
+format = '[($all_status[$ahead_behind](fg:#DA627D bg:#323232) )]($style)'
+conflicted = "[≠](fg:#DA627D bg:#323232)"
+stashed = ""
+untracked = "?"
+modified = "!"
+staged = "[+$count](bg:#323232 fg:#7DDA62)"
+renamed = "»"
+deleted = "✘"
+
+#[git_status]
+#style = "fg:#DA627D bg:#323232"
+#format = '[($all_status$ahead_behind )]($style)'
+##up_to_date = "[✓](bg:#323232)"
+#conflicted = "≠"
+#stashed = ""
+#untracked = "[?](bg:#323232 fg:#818181)"
+#modified = "[!](bg:#323232 fg:#818181)"
+#staged = "[+$count](bg:#323232 fg:#7DDA62)"
+#renamed = "[»](bg:#323232 fg:#818181)"
+#deleted = "[✘](bg:#323232 fg:#818181)"
+#
+
+[fill]
+symbol = "\u2014"
+
+
+#
+## Here is how you can shorten some long paths by text replacement
+## similar to mapped_locations in Oh My Posh:
+#[directory.substitutions]
+#"Documents" = " "
+#"Downloads" = " "
+#"Music" = " "
+#"Pictures" = " "
+## Keep in mind that the order matters. For example:
+## "Important Documents" = "  "
+## will not be replaced, because "Documents" was already substituted before.
+## So either put "Important Documents" before "Documents" or use the substituted version:
+## "Important  " = "  "
+
+[python]
+#symbol = "🐍"
+#symbol = "\ue73c"
+#symbol = "\ue235"
+symbol = "\uf81f"
+style = "bg:#323232"
+version_format = "${major}.${minor}"
+format = '[ $symbol $version( [$virtualenv](fg:#DA627D bg:#323232)) ]($style)'
+
+
+[time]
+disabled = false
+time_format = "%H.%M" # Hour.Minute Format
+style = "fg:#202020 bg:#727272"
+format = "[ \uf64f $time ]($style)"
+
+[cmd_duration]
+style = "fg:#1C1C1C bg:#DA627D"
+format = "[\ufa1e$duration]($style)"
+min_time = 2000
+
+
+[status]
+disabled = false
+style = "fg:#1C1C1C bg:#DA627D"
+symbol = "\ue009"
+format = "[$symbol$signal_name$int ]($style)"
+
+[env_var.poetry]
+variable = "POETRY_ACTIVE"
+style = "fg:#DA627D"
+symbol = 'poetry'
+format = '[$symbol]($style)'
